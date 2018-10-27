@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "rose",
+    "password": null,
+    "database": "SFPest_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "rose",
+    "password": null,
+    "database": "SFPest_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "rose",
+    "password": null,
+    "database": "SFPest_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
