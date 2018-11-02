@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('submissions/new', { title: 'New Pest Report' });
 });
 
+/* Post Second part of Submission Form page. */
+router.post('/', function(req, res, next) {
+  res.render('submissions/new-users', { title: 'Your Info' });
+});
+
 module.exports = router;
