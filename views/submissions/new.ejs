@@ -1,0 +1,32 @@
+<h1>New Pest Report</h1>
+<form method="post" action="/posts">
+  <div class="form-group">
+    <label>What is it?</label>
+    <select class="form-control" name="what">
+      <option value="ants">Ants</option>
+      <option value="bedbugs">Bed Bugs</option>
+      <option value="rats">Rats</option>
+      <option value="cockroaches">Cockroaches</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Where did you see it?</label>
+    <textarea class="form-control" name="where" placeholder="Example:Kitchen, Bathroom, Bedroom, Living Room..."></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Picture (Optional)</label>
+    <input type="file" class="form-control" name="pictureUrl" />
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input type="tel" class="form-control" name="phone" />
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+
+</form>

@@ -6,6 +6,7 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var submissionsRouter = require('./routes/submissions');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/libraries/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 
+app.use('/submissions', submissionsRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
