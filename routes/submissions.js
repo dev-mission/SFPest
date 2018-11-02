@@ -8,7 +8,10 @@ router.get('/', function(req, res, next) {
 
 /* Post Second part of Submission Form page. */
 router.post('/', function(req, res, next) {
-  res.render('submissions/new-users', { title: 'Your Info' });
+  res.render('submissions/new-users', {
+    title: 'Your Info',
+    step1: req.body
+  });
 });
 
 module.exports = router;

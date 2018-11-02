@@ -1,5 +1,10 @@
 <h1>New Pest Report</h1>
 <form method="post" action="/submissions">
+  <input type="hidden" name="where" value="<%= step1.where %>">
+  <input type="hidden" name="what" value="<%= step1.what %>">
+  <input type="hidden" name="pictureUrl" value="<%= step1.pictureUrl %>">
+  <input type="hidden" name="phone" value="<%= step1.phone %>">
+
   <div class="form-group">
     <label>Name</label>
     <input type="text" class="form-control" name="name" placeholder="Example: John Smith" />
