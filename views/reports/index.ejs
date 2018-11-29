@@ -1,0 +1,10 @@
+<h1>All Reports</h1>
+
+<ol>
+<% for (let report of reports) { %>
+    <li>
+        <a href="/reports/<%=report.id %>"><%= report.name %></a>
+
+    </li>
+    <% } %>
+</ol>
