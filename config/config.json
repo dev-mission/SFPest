@@ -1,23 +1,11 @@
 {
   "development": {
-    "username": "rose",
-    "password": "",
-    "database": "SFPest_development",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL"
   },
   "test": {
-    "username": "rose",
-    "password": null,
-    "database": "SFPest_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_TEST_URL"
   },
   "production": {
-    "username": "rose",
-    "password": null,
-    "database": "SFPest_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL"
   }
 }
