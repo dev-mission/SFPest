@@ -38,9 +38,21 @@ app.use(function(req,res,next){
   next();
 });
 
+// This function will require a user to login in prior to viewing /reports
+function requireLogin(req,res,next){
+  if (req.user) {
+    next();
+  }
+  else {
+    req.flash("error","Login Required");
+    res.redirect("/login");
+  }
+}
+
 app.use('/submissions', submissionsRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/reports',requireLogin);
 app.use('/reports', reportsRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
