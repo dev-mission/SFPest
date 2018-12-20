@@ -1,4 +1,42 @@
 <h1><%= title %></h1>
 <p>
-    <%= report.name %>
+  <ul>
+    <form>
+  <div class="form-group row">
+    <label for="staticName" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticName" value="<%= report.name %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="staticunitNumber" class="col-sm-2 col-form-label">Unit Number</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticunitNumber" value="<%= report.unitNumber %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="staticwhat" class="col-sm-2 col-form-label">What's the issue?</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticwhat" value="<%= report.what %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="staticLocation" class="col-sm-2 col-form-label">What's the location?</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticLocation" value="<%= report.location %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="staticPhone" class="col-sm-2 col-form-label">What's the phone#?</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticPhone" value="<%= report.phone %>">
+    </div>
+  </div>
+
+</form>
+  </ul>
 </p>
