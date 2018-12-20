@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Report = sequelize.define('Report', {
     what: DataTypes.STRING,
-    where: DataTypes.TEXT,
+    location: DataTypes.TEXT,
     pictureUrl: DataTypes.STRING,
     name: DataTypes.STRING,
     phone: DataTypes.STRING,

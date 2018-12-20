@@ -19,7 +19,7 @@ router.post('/step2', function(req, res, next) {
 router.post('/', function(req, res, next) {
   models.Report.create({
     what: req.body.what,
-    where: req.body.where,
+    location: req.body.location,
     pictureUrl: req.body.pictureUrl,
     name: req.body.name,
     phone: req.body.phone,
