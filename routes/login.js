@@ -35,15 +35,23 @@ passport.deserializeUser(function(id, done) {
 
 /* GET the login Form. */
 router.get('/', function(req, res, next) {
-    res.render('login/new', { title: 'Log In' });
+  res.render('login/new', {
+    title: 'Log In',
+    redirectURI: req.query.redirectURI
   });
+});
 
   /* Post to create a new report. */
 router.post('/', passport.authenticate('local', {
-  successRedirect: '/',
-  successFlash: 'You are now logged in!',
   failureRedirect: '/login',
   failureFlash: true
-}));
+}), function(req, res) {
+  req.flash('info', 'You have been logged in!');
+  if (req.body.redirectURI != '') {
+    res.redirect(req.body.redirectURI);
+  } else {
+    res.redirect('/');
+  }
+});
 
 module.exports = router;
