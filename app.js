@@ -44,8 +44,8 @@ function requireLogin(req,res,next){
     next();
   }
   else {
-    req.flash("error","Login Required");
-    res.redirect("/login");
+    req.flash("error", "Login Required");
+    res.redirect(`/login?redirectURI=${encodeURIComponent(req.originalUrl)}`);
   }
 }
 
