@@ -1,20 +1,22 @@
 <h1>New User Registration</h1>
 <form method="post" action="/register">
-
   <div class="form-group">
     <label>Username</label>
-    <input type="text" class="form-control" name="username" />
-  </div>
-  
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" name="password" />
+    <input type="text" class="form-control<%= hasError('username') ? ' is-invalid' : '' %>" name="username" value="<%= user.username %>" />
+    <% if (hasError('username')) { %>
+    <div class="invalid-feedback"><%= inflection.capitalize(errorMessages('username').join(', ')) %>.</div>
+    <% } %>
   </div>
 
-  
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control<%= hasError('password') ? ' is-invalid' : '' %>" name="password" value="<%= user.password %>" />
+    <% if (hasError('password')) { %>
+    <div class="invalid-feedback"><%= inflection.capitalize(errorMessages('password').join(', ')) %>.</div>
+    <% } %>
+  </div>
 
   <div class="form-group">
     <button class="btn btn-primary" type="submit">Submit</button>
   </div>
-
 </form>
