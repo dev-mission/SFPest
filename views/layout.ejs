@@ -12,7 +12,7 @@
   </head>
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">SF Pest</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">SF Pest</a>
       <% if (current_user) { %>
         <span class="navbar-text">Hello, <%= current_user.username %>!</span>
       <% } %>
@@ -31,7 +31,7 @@
             <ul class="nav flex-column">
 
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/reports">
                   <span data-feather="bar-chart-2"></span>
                   Reports
                 </a>
