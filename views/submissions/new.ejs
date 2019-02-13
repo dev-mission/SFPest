@@ -1,5 +1,5 @@
 <h1>New Pest Report</h1>
-<form method="post" action="/submissions/step2">
+<form method="post" action="/submissions/step2" encType="multipart/form-data">
   <div class="form-group">
     <label>What is it?</label>
     <select class="form-control" name="what">
@@ -17,7 +17,7 @@
 
   <div class="form-group">
     <label>Picture (Optional)</label>
-    <input type="file" class="form-control" name="pictureUrl" />
+    <input type="file" class="form-control" name="picture" />
   </div>
 
   <div class="form-group">
@@ -28,5 +28,4 @@
   <div class="form-group">
     <button class="btn btn-primary" type="submit">Submit</button>
   </div>
-
 </form>
