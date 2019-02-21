@@ -14,6 +14,7 @@ var loginRouter = require('./routes/login');
 var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport');
+var fileUpload = require('express-fileupload');
 
 var app = express();
 
@@ -22,6 +23,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(logger('dev'));
+app.use(fileUpload({
+  useTempFiles: !process.env.AWS_S3_BUCKET
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
