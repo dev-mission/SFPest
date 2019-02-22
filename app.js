@@ -53,13 +53,13 @@ function requireLogin(req,res,next){
   }
 }
 
-app.use('/submissions', submissionsRouter);
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
 app.use('/users', usersRouter);
+app.use('/register', registerRouter);
 app.use('/reports',requireLogin);
 app.use('/reports', reportsRouter);
-app.use('/register', registerRouter);
-app.use('/login', loginRouter);
+app.use('/submissions', submissionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
