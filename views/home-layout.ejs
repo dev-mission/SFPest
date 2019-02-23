@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %> - SF Pest</title>
+    <link rel="stylesheet" href="/libraries/bootstrap/css/bootstrap.css" />
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">SF Pest</a>
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/reports">Admin</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main role="main">
+      <% if (flash.info || flash.error) { %>
+        <% if (flash.info) { %>
+        <div class="alert alert-success"><%= flash.info.join(' '); %></div>
+        <% } %>
+        <% if (flash.error) { %>
+        <div class="alert alert-danger"><%= flash.error.join(' '); %></div>
+        <% } %>
+      <% } %>
+      <%- body %>
+    </main>
+  </body>
+</html>

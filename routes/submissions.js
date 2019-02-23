@@ -8,6 +8,12 @@ var mv = require('mv');
 var path = require('path');
 var AWS = require('aws-sdk');
 
+/* Have ALL submissions views use the home-layout */
+router.use(function(req, res, next) {
+  res.locals.layout = 'home-layout';
+  next();
+});
+
 /* GET First Part of Submission Form page. */
 router.get('/step1', function(req, res, next) {
   res.render('submissions/new', { title: 'New Pest Report' });
