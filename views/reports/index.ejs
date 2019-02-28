@@ -5,6 +5,7 @@
       <tr>
         <th>ID#</th>
         <th>Name</th>
+        <th>Timestamp</th>
       </tr>
     </thead>
     <tbody>
@@ -12,6 +13,7 @@
       <tr>
         <td><a href="/reports/<%= report.id %>"><%= report.id %></a></td>
         <td><a href="/reports/<%= report.id %>"><%= report.name %></a></td>
+        <td><a href="/reports/<%= report.id %>"><%= report.createdAt %></a></td>
       </tr>
       <% } %>
     </tbody>
