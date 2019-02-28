@@ -4,7 +4,10 @@ var models = require('../models');
 
 /* GET All Pest Reports. */
 router.get('/', function(req, res, next) {
-    models.Report.all().then(function(reports) {
+    models.Report.all({
+        order: [
+         ['createdAt', 'DESC']],
+        }).then(function(reports) {
         res.render('reports/index', {
             title: 'All Pest Reports',
             reports: reports
