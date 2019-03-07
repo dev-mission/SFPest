@@ -10,6 +10,14 @@
   </div>
 
   <div class="form-group row">
+      <label for="staticName" class="col-sm-2 col-form-label">Adress</label>
+      <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="streetNumber" value="<%= report.streetNumber %>">
+        <input type="text" readonly class="form-control-plaintext" id="streetName" value="<%= report.streetName %>">
+      </div>
+    </div>
+
+  <div class="form-group row">
     <label for="staticunitNumber" class="col-sm-2 col-form-label">Unit Number</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control-plaintext" id="staticunitNumber" value="<%= report.unitNumber %>">
