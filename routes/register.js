@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
     username: req.body.username
   }).validate().then(function() {
     //// check if username exists
-    models.User.find({where: sequelize.where(sequelize.fn('lower', sequelize.col('username')), sequelize.fn('lower', req.body.username))}).then(function(user) {
+    models.User.findOne({where: sequelize.where(sequelize.fn('lower', sequelize.col('username')), sequelize.fn('lower', req.body.username))}).then(function(user) {
       if (user) {
         errors.push({
           path: 'username',
@@ -65,7 +65,7 @@ router.post('/', function(req, res, next) {
       }
     });
   }).catch(function(error) {
-    errors = errors.concat(error.errors);
+    errors = errors.concat(error.errors || []);
     render(res, req.body, errors);
   });
 });

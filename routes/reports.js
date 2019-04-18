@@ -4,7 +4,7 @@ var models = require('../models');
 
 /* GET All Pest Reports. */
 router.get('/', function(req, res, next) {
-    models.Report.all({
+    models.Report.findAll({
         order: [
          ['createdAt', 'DESC']],
         }).then(function(reports) {
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    models.Report.findById(req.params.id).then(function(report) {
+    models.Report.findByPk(req.params.id).then(function(report) {
         res.render('reports/show', {
             title: "Report Details",
             report: report

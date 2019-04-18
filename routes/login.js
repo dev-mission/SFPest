@@ -17,7 +17,6 @@ passport.use(new passportLocal.Strategy(
         return done(null, false, { message: 'Invalid password' });
       });
     }).catch(function(error) {
-      console.log(error);
       return done(null, false, { message: 'Invalid login' });
     });
   }
@@ -28,7 +27,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  models.User.findById(id).then(function(user) {
+  models.User.findByPk(id).then(function(user) {
     done(null, user);
   });
 });
