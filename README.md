@@ -1,12 +1,11 @@
 # SFPest
-Softwares PreInstall Requirements: node and postgres
-Steps on "How to Join" this project as a developer
-1) Clone this Repository to your Computer from Github
-2) In the terminal type "git clone (Repository URL Copied from Github)" and press enter
-3) Change into the project directory and run the following line in the terminal: ```npm install```
-4) Start your postgres database
-5) Make a copy of example.env called .env: ```cp example.env .env```
-6) Edit .env with your database username and password
-7) Create the database by typing the following in your terminal: ```node_modules/.bin/sequelize db:create```
-8) Run the migrate command by typing the following: ```node_modules/.bin/sequelize db:migrate```
-9) Start the server with the command: ```npm start```
+
+## Docker-based Development
+
+1) Install Docker for your OS: https://www.docker.com/products/docker-desktop
+2) Clone this repo into a directory on your computer
+3) In the root of this repo directory, bring up the environment: ```$ docker-compose up```
+4) In another shell, log in to the running server instance: ```$ docker-compose exec server bash -l```
+5) Create the database: ```# sequelize db:create```
+6) Run the database migrations: ```# sequelize db:migrate```
+7) Open the web app in your browser at: http://localhost:3000/
