@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: postgres:11
+  server:
+    build: .
+    command: bash -l -c "npm start"
+    volumes:
+      - .:/opt/node/app
+      - /opt/node/app/node_modules
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgres://postgres@db/sfpest
+    ports:
+      - 3000:3000
+      - 3001:3001
