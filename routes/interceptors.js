@@ -31,7 +31,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   models.User.findByPk(id, {
-    include: [{model: models.Membership, as: 'memberships', where: {revokedAt: null}}]
+    include: [{model: models.Membership, as: 'memberships', where: {revokedAt: null}, required: false}]
   }).then(function(user) {
     done(null, user);
   });
