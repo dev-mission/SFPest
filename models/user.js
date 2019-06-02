@@ -1,23 +1,69 @@
 'use strict';
+
+const sequelizePaginate = require('sequelize-paginate')
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: {
+    firstName: {
       type: DataTypes.STRING,
+      allowNull: false,
+      field: 'first_name',
       validate: {
-        is: {
-          args: [/^[a-z0-9_\-]+$/i],
-          msg: 'Invalid username: min 3 letters, numbers, -, or _'
+        notNull: {
+          msg: 'First name cannot be blank'
         },
-        len: {
-          args: [3, 30],
-          msg: 'Invalid username: min 3 letters, numbers, -, or _'
+        notEmpty: {
+          msg: 'First name cannot be blank'
         }
       }
     },
-    hashed_password: DataTypes.STRING
-  }, {});
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      field: 'last_name',
+      validate: {
+        notNull: {
+          msg: 'Last name cannot be blank'
+        },
+        notEmpty: {
+          msg: 'Last name cannot be blank'
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Email cannot be blank'
+        },
+        notEmpty: {
+          msg: 'Email cannot be blank'
+        }
+      }
+    },
+    hashedPassword: {
+      type: DataTypes.STRING,
+      field: 'hashed_password',
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+      field: 'is_admin',
+    },
+    deactivatedAt: {
+      type: DataTypes.DATE,
+      field: 'deactivated_at',
+    },
+  }, {
+    tableName: 'users',
+    underscored: true
+  });
   User.associate = function(models) {
     // associations can be defined here
+    User.hasMany(models.Membership, {as: 'memberships'});
   };
+  sequelizePaginate.paginate(User)
   return User;
 };

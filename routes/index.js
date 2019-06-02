@@ -1,9 +1,34 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
 
-/* GET home page. */
+const express = require('express');
+const router = express.Router();
+const models = require('../models');
+
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home', layout: 'home-layout' });
+  models.Property.findAll({
+    order: [['name', 'ASC']]
+  }).then(function(properties) {
+    res.render('index', {
+      title: 'Home',
+      layout: 'home-layout',
+      properties: properties
+    });
+  });
+});
+
+router.get('/about-us', function(req, res, next) {
+  res.render('about', {
+    title: 'About Us',
+    layout: 'home-layout'
+  });
+});
+
+router.get('/disclaimers', function(req, res, next) {
+  res.render('disclaimers', {
+    title: 'Disclaimers',
+    layout: 'home-layout'
+  });
 });
 
 router.get('/logout', function(req,res,next){

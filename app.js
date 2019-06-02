@@ -2,19 +2,21 @@ require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var submissionsRouter = require('./routes/submissions');
-var reportsRouter = require('./routes/reports');
-var registerRouter = require('./routes/register');
-var loginRouter = require('./routes/login');
-var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport');
 var fileUpload = require('express-fileupload');
+var i18n = require('i18n');
+
+var interceptors = require('./routes/interceptors');
+var indexRouter = require('./routes/index');
+var invitesRouter = require('./routes/invites');
+var submissionsRouter = require('./routes/submissions');
+var loginRouter = require('./routes/login');
+var adminRouter = require('./routes/admin');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -28,38 +30,40 @@ app.use(fileUpload({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({secret: 'changeme'}));
+app.use(cookieSession({
+  secret: process.env.SESSION_SECRET,
+  secure: process.env.NODE_ENV == 'production'
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/libraries/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
+app.use('/libraries/cleave', express.static(path.join(__dirname, 'node_modules/cleave.js/dist')));
+app.use('/libraries/fontawesome', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free')));
+app.use('/libraries/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 
-app.use(function(req,res,next){
+i18n.configure({
+  locales: ['en'],
+  directory: path.join(__dirname, 'locales')
+});
+
+app.use(i18n.init);
+app.use(function(req, res, next) {
   res.locals.flash = req.flash();
-  res.locals.current_user = req.user;
+  res.locals.currentUser = req.user;
   next();
 });
 
-// This function will require a user to login in prior to viewing /reports
-function requireLogin(req,res,next){
-  if (req.user) {
-    next();
-  }
-  else {
-    req.flash("error", "Login Required");
-    res.redirect(`/login?redirectURI=${encodeURIComponent(req.originalUrl)}`);
-  }
-}
-
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
-app.use('/users', usersRouter);
-app.use('/register', registerRouter);
-app.use('/reports',requireLogin);
-app.use('/reports', reportsRouter);
-app.use('/submissions', submissionsRouter);
+app.use('/invites', invitesRouter);
+app.use('/admin', interceptors.requireLogin);
+app.use('/admin', adminRouter);
+app.use('/api', interceptors.requireLogin);
+app.use('/api', apiRouter);
+app.use(submissionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,7 +73,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.current_user = null;
+  res.locals.currentUser = null;
   res.locals.flash = {};
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

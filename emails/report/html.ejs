@@ -1,0 +1,9 @@
+<%- include('../layout/_header.html.ejs') %>
+<p>A new pest report has been submitted for <b><%= property.name %></b>.</p>
+<p>To view and respond, log in at:</p>
+<%- include('../layout/_button.html.ejs', {
+  label: 'VIEW REPORT',
+  url: url
+}) %>
+<p><a href="<%= url %>"><%= url %></a></p>
+<%- include('../layout/_footer.html.ejs') %>

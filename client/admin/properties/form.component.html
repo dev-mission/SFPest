@@ -1,0 +1,36 @@
+<div class="form-group">
+  <label for="name">Name</label>
+  <input [(ngModel)]="record.name" [class.is-invalid]="error.messages|error:'name'" type="text" class="form-control" id="name" name="name">
+  <div *ngIf="error.messages|error:'name'" class="invalid-feedback">{{(error.messages|error:'name').message}}</div>
+</div>
+<div class="form-group">
+  <label for="urlId">URL ID</label>
+  <input [(ngModel)]="record.urlId" [class.is-invalid]="error.messages|error:'urlId'" type="text" class="form-control" id="urlId" name="urlId">
+  <div *ngIf="error.messages|error:'urlId'" class="invalid-feedback">{{(error.messages|error:'urlId').message}}</div>
+</div>
+<div class="form-group">
+  <label for="streetNames">Street Names</label>
+  <app-shared-array [object]="record" propertyName="streetNames" id="streetNames" name="streetNames" placeholder="">
+  </app-shared-array>
+  <div *ngIf="error.messages|error:'streetNames'" class="invalid-feedback d-block">{{(error.messages|error:'streetNames').message}}</div>
+</div>
+<div class="form-group">
+  <label for="city">City</label>
+  <input [(ngModel)]="record.city" [class.is-invalid]="error.messages|error:'city'" type="text" class="form-control" id="city" name="city">
+  <div *ngIf="error.messages|error:'city'" class="invalid-feedback">{{(error.messages|error:'city').message}}</div>
+</div>
+<div class="form-group">
+  <label for="state">State</label>
+  <input [(ngModel)]="record.state" [class.is-invalid]="error.messages|error:'state'" type="text" class="form-control" id="state" name="state">
+  <div *ngIf="error.messages|error:'state'" class="invalid-feedback">{{(error.messages|error:'state').message}}</div>
+</div>
+<div class="form-group">
+  <label for="postalCode">Postal Code</label>
+  <input [(ngModel)]="record.postalCode" [class.is-invalid]="error.messages|error:'postalCode'" type="text" class="form-control" id="postalCode" name="postalCode">
+  <div *ngIf="error.messages|error:'postalCode'" class="invalid-feedback">{{(error.messages|error:'postalCode').message}}</div>
+</div>
+<div class="form-group">
+  <label for="confirmation">Report Confirmation Text</label>
+  <textarea [(ngModel)]="record.confirmation" [class.is-invalid]="error.messages|error:'confirmation'" type="text" class="form-control" id="confirmation" name="confirmation"></textarea>
+  <div *ngIf="error.messages|error:'confirmation'" class="invalid-feedback">{{(error.messages|error:'confirmation').message}}</div>
+</div>

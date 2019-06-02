@@ -1,0 +1,86 @@
+<router-outlet></router-outlet>
+<div [class.d-none]="route.firstChild">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2">Team Members</h1>
+    <div class="form-inline">
+      <app-shared-current-property></app-shared-current-property>
+    </div>
+  </div>
+  <app-shared-list #membershipList *ngIf="params" type="memberships" [params]="params">
+    <thead>
+      <tr>
+        <th class="col-2">Last Name</th>
+        <th class="col-2">First Name</th>
+        <th class="col-3">Email</th>
+        <th class="col-1">Admin?</th>
+        <th class="col-4">Actions</th>
+      </tr>
+    </thead>
+    <ng-template let-record="record">
+      <tr>
+        <td>{{record.user.lastName}}</td>
+        <td>{{record.user.firstName}}</td>
+        <td>{{record.user.email}}</td>
+        <td><span *ngIf="record.isAdmin"><i class="fas fa-check-square"></i></span></td>
+        <td><span *ngIf="currentUser.isPropertyAdmin(currentProperty.id)"><a href="#" (click)="revokeMembershipConfirmation.show(record)">Revoke</a></span></td>
+      </tr>
+    </ng-template>
+  </app-shared-list>
+  <div *ngIf="currentUser.isAdmin">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+      <h1 class="h2">Invitations</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group">
+          <a [routerLink]="['/memberships/new']" class="btn btn-sm btn-outline-secondary">Invite</a>
+        </div>
+      </div>
+    </div>
+    <app-shared-list #inviteList *ngIf="params" type="invites" basePath="memberships" [params]="params">
+      <thead>
+        <tr>
+          <th class="col-2">Last Name</th>
+          <th class="col-2">First Name</th>
+          <th class="col-3">Email</th>
+          <th class="col-1">Admin?</th>
+          <th class="col-3">Status</th>
+          <th class="col-1">Actions</th>
+        </tr>
+      </thead>
+      <ng-template let-record="record">
+        <tr>
+          <td>{{record.lastName}}</td>
+          <td>{{record.firstName}}</td>
+          <td>{{record.email}}</td>
+          <td><span *ngIf="record.isAdmin"><i class="fas fa-check-square"></i></span></td>
+          <td>
+            <p *ngIf="record.acceptedAt">
+              Accepted by: {{record.accepted.user.firstName}} {{record.accepted.user.lastName}} &lt;{{record.accepted.user.email}}&gt;<br>
+              on {{record.acceptedAt|date}}
+            </p>
+            <p *ngIf="record.revokedAt">
+              Revoked by: {{record.revoker.firstName}} {{record.revoker.lastName}} &lt;{{record.revoker.email}}&gt;<br>
+              on {{record.revokedAt|date}}
+            </p>
+            <p>
+              Sent by: {{record.inviter.firstName}} {{record.inviter.lastName}} &lt;{{record.inviter.email}}&gt;<br>
+              on {{record.createdAt|date}}
+            </p>
+          </td>
+          <td>
+            <a *ngIf="!record.revokedAt && !record.acceptedAt" href="#" (click)="revokeInviteConfirmation.show(record)">Revoke</a>
+          </td>
+        </tr>
+      </ng-template>
+    </app-shared-list>
+  </div>
+</div>
+<app-shared-modal #revokeMembershipConfirmation
+  dangerLabel="Yes" dismissLabel="No" (danger)="revokeMembership($event)">
+  <h4 class="modal-title">Are you sure?</h4>
+  <div class="modal-body">Are you sure you wish to revoke this membership?</div>
+</app-shared-modal>
+<app-shared-modal #revokeInviteConfirmation
+  dangerLabel="Yes" dismissLabel="No" (danger)="revokeInvite($event)">
+  <h4 class="modal-title">Are you sure?</h4>
+  <div class="modal-body">Are you sure you wish to revoke this invite?</div>
+</app-shared-modal>

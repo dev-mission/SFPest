@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+      <div class="card mt-4">
+        <div class="card-header">
+          <h1 class="card-title h5 mb-0"><%= property.name %></h1>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title h5">Report received</h1>
+          <p><%- property.confirmation %></p>
+          <div class="form-group">
+            <label>Name</label>
+            <div><%= report.name %></div>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <div id="confirm__phone"><%= report.phone.substring(0, 3) %> <%= report.phone.substring(3, 6) %> <%= report.phone.substring(6) %></div>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <div><%= report.streetNumber %> <%= report.streetName %> <%= report.unitNumber %></div>
+          </div>
+          <div class="form-group">
+            <label>What</label>
+            <% if (report.what == 'other') { %>
+            <div><%= report.other %></div>
+            <% } else { %>
+            <div><%= __(report.what) %></div>
+            <% }%>
+          </div>
+          <div class="form-group">
+            <label>Where</label>
+            <div><%= report.location %></div>
+          </div>
+          <% if (report.pictureUrl && report.pictureUrl != '') { %>
+          <div class="form-group">
+            <label>Picture</label>
+            <div><img class="img-fluid img-thumbnail" src="<%= report.pictureUrl %>"></div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

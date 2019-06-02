@@ -1,0 +1,23 @@
+<router-outlet></router-outlet>
+<div [class.d-none]="route.firstChild">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2">Properties</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group">
+        <a [routerLink]="['/properties/new']" class="btn btn-sm btn-outline-secondary">Add</a>
+      </div>
+    </div>
+  </div>
+  <app-shared-list type="properties">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <ng-template let-record="record">
+      <tr>
+        <td><a [routerLink]="['/properties', record.id]">{{record.name}}</a></td>
+      </tr>
+    </ng-template>
+  </app-shared-list>
+</div>

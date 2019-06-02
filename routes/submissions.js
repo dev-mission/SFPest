@@ -1,22 +1,52 @@
-var express = require('express');
-var router = express.Router();
-var models = require('../models');
-var uuid = require('uuid/v4');
-var mime = require('mime-types');
-var mkdirp = require('mkdirp');
-var mv = require('mv');
-var path = require('path');
-var AWS = require('aws-sdk');
+'use strict';
+
+const createError = require('http-errors');
+const express = require('express');
+const router = express.Router();
+const models = require('../models');
+const uuid = require('uuid/v4');
+const mime = require('mime-types');
+const mkdirp = require('mkdirp');
+const mv = require('mv');
+const path = require('path');
+const AWS = require('aws-sdk');
+const helpers = require('./helpers');
 
 /* Have ALL submissions views use the home-layout */
-router.use(function(req, res, next) {
-  res.locals.layout = 'home-layout';
-  next();
+router.use('/:urlId', function(req, res, next) {
+  models.Property.findOne({where: {urlId: req.params.urlId}}).then(function(property) {
+    if (property) {
+      res.locals.property = property;
+      res.locals.layout = 'home-layout';
+      next();
+    } else {
+      next(createError(404));
+    }
+  });
 });
 
+const what = [
+  'ants',
+  'bedbugs',
+  'cockroaches',
+  'fleas',
+  'flies',
+  'rodents',
+  'mosquitos',
+  'other'
+];
+
 /* GET First Part of Submission Form page. */
-router.get('/step1', function(req, res, next) {
-  res.render('submissions/new', { title: 'New Pest Report' });
+router.get('/:urlId', function(req, res, next) {
+  let report = models.Report.build({
+    what: what[0]
+  });
+  helpers.register(res, []);
+  res.render('submissions/step1', {
+    title: 'New Pest Report',
+    what: what,
+    report: report
+  });
 });
 
 /** Helper function to check for a picture upload */
@@ -58,12 +88,30 @@ function handlePictureFromStep1(req, callback) {
   }
 }
 
-/* POST to Second part of Submission Form page. */
-router.post('/step2', function(req, res, next) {
+router.post('/:urlId', function(req, res, next) {
   handlePictureFromStep1(req, function () {
-    res.render('submissions/new-users', {
-      title: 'Your Info',
-      step1: req.body
+    let report = models.Report.build({
+      what: req.body.what,
+      other: req.body.other,
+      location: req.body.location,
+      phone: req.body.phone.replace(/[^0-9]/g, ''),
+    });
+    report.validate({
+      fields: ['what', 'other', 'location', 'phone']
+    }).then(function() {
+      req.body.streetName = res.locals.property.streetNames[0];
+      helpers.register(res, []);
+      res.render('submissions/step2', {
+        title: 'Your Contact Info',
+        report: req.body
+      });
+    }).catch(function(error) {
+      helpers.register(res, error.errors);
+      res.render('submissions/step1', {
+        title: 'New Pest Report',
+        what: what,
+        report: req.body
+      });
     });
   })
 });
@@ -109,26 +157,41 @@ function handlePictureFromStep2(report, callback) {
 }
 
 /* Post to create a new report. */
-router.post('/', function(req, res, next) {
+router.post('/:urlId/step2', function(req, res, next) {
   models.Report.create({
     what: req.body.what,
+    other: req.body.other,
     location: req.body.location,
     name: req.body.name,
     pictureUrl: req.body.pictureUrl,
-    phone: req.body.phone,
+    phone: req.body.phone.replace(/[^0-9]/g, ''),
     streetNumber: req.body.streetNumber,
     streetName: req.body.streetName,
     unitNumber: req.body.unitNumber,
-    city: "San Francisco",
-    state: "California",
-    postalCode: "94124",
+    city: res.locals.property.city,
+    state: res.locals.property.state,
+    postalCode: res.locals.property.postalCode,
+    propertyId: res.locals.property.id
   }).then(function(report) {
     handlePictureFromStep2(report, function() {
-      res.render(`submissions/thank-you`, {
-        title: 'Thank You',
-        report: report
-      });
+      res.redirect(`/${req.params.urlId}/confirm?reportId=${report.id}`);
     })
+  }).catch(function(error) {
+    console.log(error);
+    helpers.register(res, error.errors);
+    res.render('submissions/step2', {
+      title: 'Your Contact Info',
+      report: req.body
+    });
+  });
+});
+
+router.get('/:urlId/confirm', function(req, res, next) {
+  models.Report.findByPk(req.query.reportId).then(function(report) {
+    res.render(`submissions/confirm`, {
+      title: 'Report received',
+      report: report
+    });
   });
 });
 

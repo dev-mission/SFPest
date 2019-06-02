@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+      <div class="card mt-4">
+        <div class="card-header">
+          <h1 class="card-title h5 mb-0"><%= property.name %></h1>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title h5">Your Contact Info</h1>
+          <form method="post" action="/<%= property.urlId %>/step2">
+            <input type="hidden" name="location" value="<%= report.location %>">
+            <input type="hidden" name="what" value="<%= report.what %>">
+            <input type="hidden" name="other" value="<%= report.other %>">
+            <input type="hidden" name="pictureUrl" value="<%= report.pictureUrl %>">
+            <input type="hidden" name="phone" value="<%= report.phone %>">
+
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control<%= hasError('name') ? ' is-invalid' : '' %>" name="name" value="<%= report.name %>" placeholder="Example: John Smith" />
+              <%- renderErrorMessages('name') %>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-4">
+                  <label>Street #</label>
+                  <input type="text" class="form-control<%= hasError('streetNumber') ? ' is-invalid' : '' %>" name="streetNumber" value="<%= report.streetNumber %>" placeholder="Ex: 1234" />
+                </div>
+                <div class="col-8">
+                  <label>Street Name</label>
+                  <select class="form-control" name="streetName">
+                    <% for (let streetName of property.streetNames) { %>
+                    <option value="<%= streetName %>" <%= report.streetName == streetName ? 'selected' : '' %>><%= streetName %></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <%- renderErrorMessages('streetNumber') %>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-4">
+                  <label>Unit #</label>
+                  <input type="text" class="form-control<%= hasError('unitNumber') ? ' is-invalid' : '' %>" name="unitNumber" value="<%= report.unitNumber %>" placeholder="Ex: #101" />
+                </div>
+              </div>
+              <%- renderErrorMessages('unitNumber') %>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
