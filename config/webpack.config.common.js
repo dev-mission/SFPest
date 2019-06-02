@@ -10,8 +10,6 @@ const isDev                = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
-    vendor: './client/vendor.ts',
-    polyfills: './client/polyfills.ts',
     admin: './client/admin.ts'
   },
 

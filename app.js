@@ -40,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/client', express.static(path.join(__dirname, 'dist')));
 app.use('/libraries/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use('/libraries/cleave', express.static(path.join(__dirname, 'node_modules/cleave.js/dist')));
 app.use('/libraries/fontawesome', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free')));

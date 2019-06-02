@@ -14,17 +14,13 @@ module.exports = webpackMerge(commonConfig, {
 
   output: {
     path: helpers.root('dist'),
-    publicPath: '/',
+    publicPath: '/client/',
     filename: '[hash].js',
     chunkFilename: '[id].[hash].chunk.js'
   },
 
   optimization: {
     noEmitOnErrors: true,
-    splitChunks: {
-      chunks: 'all'
-    },
-    runtimeChunk: 'single',
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
