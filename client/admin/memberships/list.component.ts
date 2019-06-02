@@ -15,7 +15,7 @@ export class ListMembershipsComponent {
   propertySubscription: Subscription = null;
   params: HttpParams = null;
 
-  constructor(private api: ApiService, private currentProperty: PropertyService, private currentUser: UserService, private route: ActivatedRoute) {
+  constructor(private api: ApiService, private currentProperty: PropertyService, public currentUser: UserService, public route: ActivatedRoute) {
     this.propertySubscription = currentProperty.subject.subscribe((property: any) => {
       if (property) {
         this.params = (new HttpParams()).set('propertyId', property.id);

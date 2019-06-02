@@ -120,7 +120,7 @@ export class ListComponent {
     this.paginationLink = this.api.parsePaginationLink(response.headers.get('Link')).next;
   }
 
-  private trackById(record: any, index: number): string {
+  trackById(record: any, index: number): string {
     return record.id;
   }
 

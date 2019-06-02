@@ -8,5 +8,5 @@ import { UserService } from '../shared/services';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(private currentUser: UserService) {}
+  constructor(public currentUser: UserService) {}
 }

@@ -12,7 +12,7 @@ export class ListReportsComponent {
   propertySubscription: Subscription = null;
   params: HttpParams = null;
 
-  constructor(private currentProperty: PropertyService, private route: ActivatedRoute) {
+  constructor(private currentProperty: PropertyService, public route: ActivatedRoute) {
     this.propertySubscription = currentProperty.subject.subscribe((property: any) => {
       if (property) {
         this.params = (new HttpParams()).set('propertyId', property.id);

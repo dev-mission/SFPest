@@ -1,5 +1,5 @@
 <div class="form-inline">
-  <input [(ngModel)]="newElement" [placeholder]="placeholder" [id]="id" [name]="name" type="text" class="form-control mr-2 flex-fill">
+  <input [(ngModel)]="newElement" [placeholder]="placeholder" [id]="id" [name]="id" type="text" class="form-control mr-2 flex-fill">
   <button
     (click)="onAddInternal()"
     [disabled]="newElement == null || newElement == ''"

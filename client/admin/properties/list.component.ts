@@ -5,5 +5,5 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './list.component.html'
 })
 export class ListPropertiesComponent {
-  constructor(private route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute) {}
 }

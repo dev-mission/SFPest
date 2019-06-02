@@ -8,6 +8,6 @@ import { PropertyService } from '../../shared/services';
   templateUrl: './list.component.html'
 })
 export class ListUsersComponent {
-  constructor(private route: ActivatedRoute) {
+  constructor(public route: ActivatedRoute) {
   }
 }

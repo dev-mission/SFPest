@@ -6,7 +6,7 @@ import { NavigationService, PropertyService } from '../../shared/services';
   templateUrl: './new.component.html'
 })
 export class NewMembershipComponent {
-  constructor(private currentProperty: PropertyService, private navigation: NavigationService) {}
+  constructor(public currentProperty: PropertyService, private navigation: NavigationService) {}
 
   onCreate() {
     this.navigation.backTo('/memberships');

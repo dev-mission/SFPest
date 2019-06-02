@@ -22,9 +22,9 @@ export class FormComponent {
   @Output() delete = new EventEmitter<any>();
   @ContentChild(TemplateRef) template: TemplateRef<any>;
 
-  protected loading = false;
-  protected updated = false;
-  protected error = false;
+  loading = false;
+  updated = false;
+  error = false;
 
   constructor(protected api: ApiService, protected currentUser: UserService) { }
 
