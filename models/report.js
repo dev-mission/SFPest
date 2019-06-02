@@ -163,6 +163,10 @@ module.exports = (sequelize, DataTypes) => {
             property: property,
             url: `${process.env.BASE_URL}/admin/reports/${report.id}`
           }
+        }).then(function(response) {
+
+        }).catch(function(error) {
+          console.log(error);
         });
       });
     });

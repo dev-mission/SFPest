@@ -79,6 +79,10 @@ module.exports = (sequelize, DataTypes) => {
             property: property,
             url: `${process.env.BASE_URL}/invites/${invite.id}`
           }
+        }).then(function(response) {
+
+        }).catch(function(error) {
+          console.log(error);
         });
       });
     });
