@@ -6,8 +6,28 @@ const models = require('../models');
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    title: 'Home',
+  models.Property.findAll({
+    order: [['name', 'ASC']]
+  }).then(function(properties) {
+    res.render('index', {
+      title: 'Home',
+      layout: 'home-layout',
+      properties: properties
+    });
+  });
+});
+
+router.get('/about-us', function(req, res, next) {
+  res.render('about', {
+    title: 'About Us',
+    layout: 'home-layout'
+  });
+});
+
+router.get('/disclaimers', function(req, res, next) {
+  res.render('disclaimers', {
+    title: 'Disclaimers',
+    layout: 'home-layout'
   });
 });
 

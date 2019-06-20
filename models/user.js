@@ -61,6 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true
   });
   User.associate = function(models) {
+    // associations can be defined here
+    User.hasMany(models.Membership, {as: 'memberships'});
   };
   sequelizePaginate.paginate(User)
   return User;

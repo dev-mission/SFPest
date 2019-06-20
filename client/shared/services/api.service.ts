@@ -70,6 +70,60 @@ export class ApiService {
     }
   }
 
+  invites = {
+    index: (params?: HttpParams): Observable<any> => {
+      return this.get('/api/invites/', params);
+    },
+    create: (record: any): Observable<any> => {
+      return this.post('/api/invites/', record);
+    },
+    get: (id: string): Observable<any> => {
+      return this.get(`/api/invites/${id}/`);
+    },
+    revoke: (id: string): Observable<any> => {
+      return this.delete(`/api/invites/${id}/`);
+    }
+  };
+
+  memberships = {
+    index: (params?: HttpParams): Observable<any> => {
+      return this.get('/api/memberships/', params);
+    },
+    get: (id: string): Observable<any> => {
+      return this.get(`/api/memberships/${id}/`);
+    },
+    revoke: (id: string): Observable<any> => {
+      return this.delete(`/api/memberships/${id}/`);
+    }
+  };
+
+  properties = {
+    index: (params?: HttpParams): Observable<any> => {
+      return this.get('/api/properties/', params);
+    },
+    create: (record: any): Observable<any> => {
+      return this.post('/api/properties/', record);
+    },
+    get: (id: string): Observable<any> => {
+      return this.get(`/api/properties/${id}/`);
+    },
+    update: (id: string, record: any): Observable<any> => {
+      return this.patch(`/api/properties/${id}/`, record)
+    },
+    delete: (id: string): Observable<any> => {
+      return this.delete(`/api/properties/${id}/`);
+    }
+  };
+
+  reports = {
+    index: (params?: HttpParams): Observable<any> => {
+      return this.get('/api/reports/', params);
+    },
+    get: (id: string): Observable<any> => {
+      return this.get(`/api/reports/${id}/`);
+    },
+  };
+
   users = {
     me: (params?: HttpParams): Observable<any> => {
       return this.get('/api/users/me/', params);

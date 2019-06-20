@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %> - SF Pest</title>
+    <link rel="stylesheet" href="/libraries/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="/libraries/fontawesome/css/all.css" />
+    <link rel="stylesheet"href="/stylesheets/dashboard.css">
+    <% if (locals.head) { %><%- head %><% } %>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><i class="fa fa-bug"></i> SF Pest</a>
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/admin">Admin</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main role="main">
+      <% if (flash.info || flash.error) { %>
+        <% if (flash.info) { %>
+        <div class="alert alert-success"><%= flash.info.join(' '); %></div>
+        <% } %>
+        <% if (flash.error) { %>
+        <div class="alert alert-danger"><%= flash.error.join(' '); %></div>
+        <% } %>
+      <% } %>
+      <%- body %>
+    </main>
+    <footer class="my-5">
+      <div class="container">
+        <div class="row small text-center text-muted">
+          <div class="col">
+            <p class="mb-1"><a href="/about-us">About Us</a> | <a href="/disclaimers">Disclaimers</a></p>
+            Copyright &copy; 2019 SF Pest
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

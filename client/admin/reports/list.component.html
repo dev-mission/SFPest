@@ -1,0 +1,31 @@
+<router-outlet></router-outlet>
+<div [class.d-none]="route.firstChild">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2">Reports</h1>
+    <div class="form-inline">
+      <app-shared-current-property></app-shared-current-property>
+    </div>
+  </div>
+  <app-shared-list *ngIf="params" type="reports" [params]="params">
+    <thead>
+      <tr>
+        <th class="col-2">Date/Time</th>
+        <th class="col-2">What</th>
+        <th class="col-2">Name</th>
+        <th class="col-2">Phone</th>
+        <th class="col-4">Address</th>
+      </tr>
+    </thead>
+    <ng-template let-record="record">
+      <tr>
+        <td><a [routerLink]="['/reports', record.id]">{{record.createdAt|date:'medium'}}</a></td>
+        <td>
+          <a [routerLink]="['/reports', record.id]">{{record.what|what}} <i *ngIf="record.pictureUrl" class="far fa-image"></i></a>
+        </td>
+        <td><a [routerLink]="['/reports', record.id]">{{record.name}}</a></td>
+        <td><a [routerLink]="['/reports', record.id]">{{record.phone|phone}}</a></td>
+        <td><a [routerLink]="['/reports', record.id]">{{record.streetNumber}} {{record.streetName}} #{{record.unitNumber}}</a></td>
+      </tr>
+    </ng-template>
+  </app-shared-list>
+</div>

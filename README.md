@@ -1,4 +1,4 @@
-# Full-Stack Starter
+# SFPest
 
 ## Docker-based Development
 
@@ -12,7 +12,7 @@
 
 ## License
 
-Full-Stack Starter
+SFPest
 Copyright (C) 2019 <dev/Mission>
 
 This program is free software: you can redistribute it and/or modify

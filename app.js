@@ -12,6 +12,8 @@ var i18n = require('i18n');
 
 var interceptors = require('./routes/interceptors');
 var indexRouter = require('./routes/index');
+var invitesRouter = require('./routes/invites');
+var submissionsRouter = require('./routes/submissions');
 var loginRouter = require('./routes/login');
 var adminRouter = require('./routes/admin');
 var apiRouter = require('./routes/api');
@@ -58,10 +60,12 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/invites', invitesRouter);
 app.use('/admin', interceptors.requireLogin);
 app.use('/admin', adminRouter);
 app.use('/api', interceptors.requireLogin);
 app.use('/api', apiRouter);
+app.use(submissionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

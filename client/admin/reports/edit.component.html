@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Report</h1>
+</div>
+<app-shared-form *ngIf="id" type="reports" [id]="id" [hideButtons]="true">
+  <ng-template let-record="record" let-error="error">
+    <div class="row">
+      <div class="col-sm-6 col-lg-4">
+        <div class="form-group">
+          <label>Name</label>
+          <div>{{record.name}}</div>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <div>{{record.phone|phone}}</div>
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <div>{{record.streetNumber}} {{record.streetName}} {{record.unitNumber}}</div>
+        </div>
+        <div class="form-group">
+          <label>What</label>
+          <div>
+            <span *ngIf="record.what == 'other'">{{record.other}}</span>
+            <span *ngIf="record.what != 'other'">{{record.what|what}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Where</label>
+          <div>{{record.location}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div *ngIf="record.pictureUrl" class="form-group">
+          <label>Picture</label>
+          <div><img class="img-fluid img-thumbnail" [src]="record.pictureUrl"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</app-shared-form>

@@ -1,0 +1,10 @@
+<%- include('../layout/_header.html.ejs') %>
+<p>You are invited to join the SF Pest team for <b><%= property.name %></b>.</p>
+<p>To accept, sign up or log in at:</p>
+<%- include('../layout/_button.html.ejs', {
+  label: 'ACCEPT',
+  url: url
+}) %>
+<p><a href="<%= url %>"><%= url %></a></p>
+<p>If you did not expect this invitation, you may ignore this email.</p>
+<%- include('../layout/_footer.html.ejs') %>

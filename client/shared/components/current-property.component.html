@@ -1,0 +1,3 @@
+<select [(ngModel)]="selectedProperty" (change)="onChangeProperty($event)" class="form-control" name="property" id="property">
+  <option *ngFor="let property of properties" [ngValue]="property">{{property.name}}</option>
+</select>

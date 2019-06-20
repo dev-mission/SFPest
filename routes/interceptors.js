@@ -30,7 +30,9 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  models.User.findByPk(id).then(function(user) {
+  models.User.findByPk(id, {
+    include: [{model: models.Membership, as: 'memberships', where: {revokedAt: null}, required: false}]
+  }).then(function(user) {
     done(null, user);
   });
 });
@@ -77,4 +79,52 @@ module.exports.requireLogin = function(req, res, next) {
 
 module.exports.requireAdmin = function(req, res, next) {
   requireLogin(req, res, next, true);
+}
+
+module.exports.requirePropertyMember = function(req, res, next) {
+  requireLogin(req, res, function() {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      if (req.query.propertyId) {
+        models.Membership.findOne({
+          where: {
+            userId: req.user.id,
+            propertyId: req.query.propertyId,
+            revokedAt: null
+          }
+        }).then(function(membership) {
+          next();
+        }).catch(function(error) {
+          sendErrorForbidden(req, res);
+        });
+      } else {
+        next();
+      }
+    }
+  }, false);
+}
+
+module.exports.requirePropertyAdmin = function(req, res, next) {
+  requireLogin(req, res, function() {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      models.Membership.findOne({
+        where: {
+          userId: req.user.id,
+          propertyId: req.query.propertyId,
+          revokedAt: null
+        }
+      }).then(function(membership) {
+        if (membership.isAdmin) {
+          next();
+        } else {
+          sendErrorForbidden(req, res);
+        }
+      }).catch(function(error) {
+        sendErrorForbidden(req, res);
+      });
+    }
+  }, false);
 }
