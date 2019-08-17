@@ -18,7 +18,8 @@ router.get('/', function(req, res, next) {
         model: models.Membership,
         where: {
           userId: req.user.id
-        }
+        },
+        as: 'memberships'
       }
     ]
   }
